@@ -2,7 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"html/template"
 	"net/http"
+	"time"
 )
 
 type StructA struct {
@@ -59,8 +61,17 @@ type City struct {
 	Person string
 }
 
+func UnixToTime(timestamp int) string {
+	t := time.Unix(int64(timestamp), 0)
+	return t.Format("2006-01-02 15:04:05")
+}
+
 func main() {
 	router := gin.Default()
+
+	router.SetFuncMap(template.FuncMap{
+		"UnixToTime": UnixToTime,
+	})
 
 	router.LoadHTMLGlob("templates/**/*")
 	router.GET("/getb", GetDataB)
@@ -115,6 +126,7 @@ func main() {
 					Person: "666",
 				},
 			},
+			"testSlice": []string{},
 			"news": &City{
 				Name:   "zs",
 				Area:   100,

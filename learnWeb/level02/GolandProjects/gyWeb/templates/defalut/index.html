@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+{{ define "default/index.html" }}
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{.title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
 </head>
 <body>
     <h1>
@@ -11,8 +13,48 @@
 
     <h2>{{.score}}</h2>
 
+    <ul>
+        {{range $key,$value:=.hobby}}
+         <li>{{$key}}----{{$value}}</li>
+        {{end}}
+    </ul>
     <p>
         {{.hobby}}
     </p>
+
+    <ul>
+        {{range $key,$value:=.newsList}}
+        <li>{{$key}}------{{$value.Name}}--{{$value.Area}}--{{$value.Person}}</li>
+        {{end}}
+    </ul>
+
+    <ul>
+        {{range $key,$value:=.testSlice}}
+        <li>{{$key}}------{{$value.Name}}--{{$value.Area}}--{{$value.Person}}</li>
+        {{else}}
+         <li>切片中没有数据</li>
+        {{end}}
+    </ul>
+
+    <p>
+        {{.news.Name}}
+        {{.news.Area}}
+        {{.news.Person}}
+    </p>
+
+    <br>
+     {{with .news}}
+     {{.Name}}
+     {{.Area}}
+     {{.Person}}
+    {{end}}
+
+    {{len .msg}}
+
+   <p>{{.date}}</p>
+
+    <br>
+   {{UnixToTime .date}}
 </body>
 </html>
+{{ end }}
